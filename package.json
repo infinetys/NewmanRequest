@@ -1,0 +1,13 @@
+{
+  "name": "NewmanRequest",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "run-script-sit": "node ./src/Request_master.js"
+  },
+  "dependencies": {
+    "newman": "^5.2.1",
+    "newman-reporter-htmlextra": "^1.19.6"
+  }
+}

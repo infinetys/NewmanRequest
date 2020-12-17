@@ -1,0 +1,218 @@
+{
+	"info": {
+		"_postman_id": "73ce81b4-1b2a-4217-b6d1-6a342fb5254b",
+		"name": "API_Request",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Write test script to execute test the API (GET Method) by Newman.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7d31c5ff-6246-4468-8667-29b7ac17a8e2",
+						"exec": [
+							"pm.test(\"API : Write test script to execute test the API (GET Method) by Newman. - Request not have error\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.not.have.any.keys('errors');",
+							"",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ad3f8c35-a8b2-441a-8c0d-76c3e08efa42",
+						"exec": [
+							"pm.environment.set(\"url\", \"https://jsonplaceholder.typicode.com/todos\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}",
+					"host": [
+						"{{url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Write test script to execute test the API (POST Method) with assertions by Newman.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d9d5d580-e3ca-405f-b321-64e8fa7d836a",
+						"exec": [
+							"pm.test(\"API : Write test script to execute test the API (POST Method) with assertions by Newman. - Request not have error\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.not.have.any.keys('errors');",
+							"",
+							"});",
+							"//Assertions:",
+							"",
+							"//HTTP Status code",
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);",
+							"});",
+							"",
+							"//Response Header",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"var jsonData = pm.response.json();",
+							"console.log('Header', jsonData.header);",
+							"",
+							"//Response match with any word in body",
+							"pm.test(\"Check form.body == This is a test!\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.form.body).to.eql(\"This is a test!\");  ",
+							"});",
+							"",
+							"pm.test(\"Check form.title == Robotframework requests\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.form.title).to.eql(\"Robotframework requests\");  ",
+							"});",
+							"",
+							"pm.test(\"Check form.userId == 1\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.form.userId).to.eql(\"1\");  ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a90fcb02-a876-4142-a2f1-99363416a618",
+						"exec": [
+							"pm.environment.set(\"url\", \"http://httpbin.org/post\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Robotframework requests",
+							"type": "text"
+						},
+						{
+							"key": "body",
+							"value": "This is a test!",
+							"type": "text"
+						},
+						{
+							"key": "userId",
+							"value": "1",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}",
+					"host": [
+						"{{url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Write test script to execute test the API with Basic Authentication by Newman.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "81b880ed-679f-40d0-8502-60afe3c51d5e",
+						"exec": [
+							"pm.test(\"API : Write test script to execute test the API with Basic Authentication by Newman. - Request not have error\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.not.have.any.keys('errors');",
+							"",
+							"});",
+							"//Assertions:",
+							"",
+							"//How to stop Newman when any assertion fails?",
+							"pm.test(\"stop Newman when any assertion fails?\", function () {",
+							"if(pm.response.code !== 200) {",
+							"    postman.setNextRequest(null)",
+							"} else {",
+							"",
+							"//HTTP Status code",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"}",
+							"});",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "04ec4263-5a62-4afd-9fb9-150b031522cc",
+						"exec": [
+							"pm.environment.set(\"url\", \"http://httpbin.org/basic-auth/user/pass\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "pass",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "user",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}",
+					"host": [
+						"{{url}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
