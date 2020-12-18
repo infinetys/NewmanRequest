@@ -1,4 +1,4 @@
-# NewmanReques
+# NewmanRequest
 1. git clone
 2. install node
 3. yarn or npm install
